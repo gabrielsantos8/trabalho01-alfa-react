@@ -3,10 +3,12 @@
 import { Loading } from "@/components/Loading";
 import { ToastComponent } from "@/components/Toast";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { parseCookies, setCookie } from "nookies";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function Login() {
+  const router = useRouter();
   const refForm = useRef<any>();
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(false);
@@ -16,7 +18,7 @@ export default function Login() {
     const cookies = parseCookies();
     const token = cookies["shoopypainel.token"];
     if (token) {
-      window.location.href = "/dashboard";
+      router.push("/dashboard");
     }
   }, []);
 
@@ -40,7 +42,7 @@ export default function Login() {
           });
 
           setLoading(false);
-          window.location.href = "/dashboard";
+          router.push("/dashboard");
         })
         .catch((err) => {
           setLoading(false);
